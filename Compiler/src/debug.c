@@ -22,17 +22,16 @@ static int constantInstruction(const char* name, Chunk* chunk, int offset) {
     return offset + 2;
 }
 static int longConstantInstruction(const char* name, Chunk* chunk, int offset) {
-    uint8_t* constant_code = &chunk->code[offset];
-    uint32_t constant = 0;
+    uint8_t* constant_code = &chunk->code[offset + 1];
+    uint16_t constant = 0;
     uint8_t* constant_bytes = (uint8_t*)&constant;
-    for (int i = 1; i < 4; ++i) {
-        constant_bytes[i] = constant_code[i];
-    }
+    constant_bytes[0] = constant_code[0];
+    constant_bytes[1] = constant_code[1];
 
     printf("%-16s %4d '", name, constant);
     printValue(chunk->constants.values[constant]);
     printf("'\n");
-    return offset + 4;
+    return offset + 3;
 }
 
 int disassembleInstruction(Chunk* chunk, int offset) {
@@ -52,6 +51,16 @@ int disassembleInstruction(Chunk* chunk, int offset) {
         return constantInstruction("OP_CONSTANT", chunk, offset);
     case OP_CONSTANT_LONG:
         return longConstantInstruction("OP_CONSTANT_LONG", chunk, offset);
+    case OP_ADD:
+        return simpleInstruction("OP_ADD", offset);
+    case OP_SUBTRACT:
+        return simpleInstruction("OP_SUBTRACT", offset);
+    case OP_MULTILPY:
+        return simpleInstruction("OP_MULTIPLY", offset);
+    case OP_DIVIDE:
+        return simpleInstruction("OP_DIVIDE", offset);
+    case OP_NEGATE:
+        return simpleInstruction("OP_NEGATE", offset);
     case OP_RETURN:
         return simpleInstruction("OP_RETURN", offset);
     

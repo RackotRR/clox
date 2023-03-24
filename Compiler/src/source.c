@@ -8,16 +8,25 @@ int main(int argc, const char* argv[]) {
 
     Chunk chunk;
     initChunk(&chunk);
-    
-    writeConstant(&chunk, 4.5, 122);
 
     uint32_t constant = addConstant(&chunk, 1.2);
     writeChunk(&chunk, OP_CONSTANT, 123);
     writeChunk(&chunk, constant, 123);
+
+    writeConstant(&chunk, 3.4, 123);
+
+    writeChunk(&chunk, OP_ADD, 123);
+
+    constant = addConstant(&chunk, 5.6);
+    writeChunk(&chunk, OP_CONSTANT, 123);
+    writeChunk(&chunk, constant, 123);
     
+    writeChunk(&chunk, OP_DIVIDE, 123);
+    writeChunk(&chunk, OP_NEGATE, 123);
+
     writeChunk(&chunk, OP_RETURN, 123);
 
-    //disassebleChunk(&chunk, "test chunk");
+    disassebleChunk(&chunk, "test chunk");
     interpret(&chunk);
 
     freeChunk(&chunk);

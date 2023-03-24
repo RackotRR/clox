@@ -29,6 +29,12 @@ Value pop() {
 static InterpretResult run() {
 #define READ_BYTE() (*vm.ip++)
 #define READ_CONSTANT() (vm.chunk->constants.values[READ_BYTE()])
+#define BINARY_OP(op) \
+    do { \
+        double b = pop(); \
+        double a = pop(); \
+        push(a op b); \
+    } while(false)
 
     for (;;) {
 #ifdef DEBUG_TRACE_EXECUTION
@@ -51,17 +57,20 @@ static InterpretResult run() {
             break;
         }
         case OP_CONSTANT_LONG: {
-            uint8_t constant_id_bytes[4];
-            constant_id_bytes[0] = 0;
-            for (int i = 1; i < 4; ++i) {
-                constant_id_bytes[i] = READ_BYTE();
-            }
-            uint32_t* constant_id = (uint32_t*)constant_id_bytes;
+            uint16_t constant_id;
+            uint8_t* constant_id_bytes = (uint8_t*)&constant_id;
+            constant_id_bytes[0] = READ_BYTE();
+            constant_id_bytes[1] = READ_BYTE();
 
-            Value constant = vm.chunk->constants.values[*constant_id];
+            Value constant = vm.chunk->constants.values[constant_id];
             push(constant);
             break;
         }
+        case OP_ADD: BINARY_OP(+); break;
+        case OP_SUBTRACT: BINARY_OP(-); break;
+        case OP_MULTILPY: BINARY_OP(*); break;
+        case OP_DIVIDE: BINARY_OP(/ ); break;
+        case OP_NEGATE: push(-pop()); break; 
         case OP_RETURN: {
             printValue(pop());
             printf("\n");
@@ -75,6 +84,7 @@ static InterpretResult run() {
 
 #undef READ_BYTE
 #undef READ_CONSTANT
+#undef BINARY_OP
 }
 
 InterpretResult interpret(Chunk* chunk) {
