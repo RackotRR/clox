@@ -11,7 +11,8 @@ void initLinesInfo(LinesInfo* lines_info) {
     lines_info->counts = NULL;
 }
 void freeLinesInfo(LinesInfo* lines_info) {
-    FREE_ARRAY(LinesInfo, lines_info, lines_info->capacity);
+    FREE_ARRAY(int, lines_info->lines, lines_info->capacity);
+    FREE_ARRAY(int, lines_info->counts, lines_info->capacity);
     initLinesInfo(lines_info);
 }
 

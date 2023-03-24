@@ -6,11 +6,9 @@ int main(int argc, const char* argv[]) {
     Chunk chunk;
     initChunk(&chunk);
     
-    int constant = addConstant(&chunk, 4.5);
-    writeChunk(&chunk, OP_CONSTANT, 122);
-    writeChunk(&chunk, constant, 122);
+    writeConstant(&chunk, 4.5, 122);
 
-    constant = addConstant(&chunk, 1.2);
+    uint32_t constant = addConstant(&chunk, 1.2);
     writeChunk(&chunk, OP_CONSTANT, 123);
     writeChunk(&chunk, constant, 123);
     
