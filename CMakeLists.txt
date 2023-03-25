@@ -11,6 +11,6 @@ add_executable(clox
     src/common/chunk/chunk.c
     src/common/memory/memory.c
     src/common/value/value.c
-    src/common/value/object.c
-)
+    src/common/object/object.c
+    src/common/table/table.c)
 target_include_directories(clox PRIVATE src)

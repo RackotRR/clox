@@ -3,7 +3,7 @@
 
 #include "compiler.h"
 #include "scanner.h"
-#include "common/value/object.h"
+#include "common/object/object.h"
 
 #ifdef DEBUG_PRINT_CODE
 #include "debug/debug.h"

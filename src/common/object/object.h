@@ -2,7 +2,7 @@
 #define clox_object_h
 
 #include "common/common.h"
-#include "value.h"
+#include "common/value/value.h"
 
 #define OBJ_TYPE(value) (AS_OBJ(value)->type)
 
@@ -25,12 +25,12 @@ struct ObjString {
     int length;
     bool is_constant;
     char* chars;
+    uint32_t hash;
 };
 
 ObjString* takeString(char* chars, int length);
 ObjString* constantString(const char* chars, int length);
 void printObject(Value value);
-bool objectsEqual(Obj* obj1, Obj* obj2);
 
 static inline bool isObjType(Value value, ObjType type) {
     return IS_OBJ(value) && AS_OBJ(value)->type == type;

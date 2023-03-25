@@ -5,7 +5,7 @@
 #include "debug/debug.h"
 #include "compiler/compiler.h"
 #include "common/memory/memory.h"
-#include "common/value/object.h"
+#include "common/object/object.h"
 
 #include "vm.h"
 
@@ -31,9 +31,11 @@ static void runtimeError(const char* format, ...) {
 void initVM() {
     resetStack();
     vm.objects = NULL;
+    initTable(&vm.strings);
 }
 
 void freeVM() {
+    freeTable(&vm.strings);
     freeObjects();
 }
 
