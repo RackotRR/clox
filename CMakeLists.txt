@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 project(lox)
 
-add_subdirectory(Compiler)
-add_subdirectory(VirtualMachine)
+add_subdirectory(compiler)
+add_subdirectory(vm)
+add_subdirectory(lib)
