@@ -1,8 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "common/common.h"
+#include "common/memory/memory.h"
 #include "lines_info.h"
-#include "memory.h"
 
 void initLinesInfo(LinesInfo* lines_info) {
     lines_info->capacity = 0;

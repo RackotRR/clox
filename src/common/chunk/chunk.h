@@ -1,9 +1,9 @@
 #ifndef clox_chunk_h
 #define clox_chunk_h
 
-#include "common.h"
-#include "value.h"
-#include "lines_info.h"
+#include "common/common.h"
+#include "common/value/value.h"
+#include "debug/lines_info.h"
 
 typedef enum {
     OP_CONSTANT,

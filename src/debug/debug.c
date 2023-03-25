@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+#include "common/common.h"
 #include "debug.h"
 
 void disassebleChunk(Chunk* chunk, const char* name) {
