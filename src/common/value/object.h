@@ -23,11 +23,12 @@ struct Obj {
 struct ObjString {
     Obj obj;
     int length;
+    bool is_constant;
     char* chars;
 };
 
 ObjString* takeString(char* chars, int length);
-ObjString* copyString(const char* chars, int length);
+ObjString* constantString(const char* chars, int length);
 void printObject(Value value);
 bool objectsEqual(Obj* obj1, Obj* obj2);
 

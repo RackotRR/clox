@@ -18,22 +18,19 @@ static Obj* allocateObject(size_t size, ObjType type) {
     return object;
 }
 
-static ObjString* allocateString(char* chars, int length) {
+static ObjString* allocateString(char* chars, int length, bool is_constant) {
     ObjString* string = ALLOCATE_OBJ(ObjString, OBJ_STRING);
     string->length = length;
+    string->is_constant = is_constant;
     string->chars = chars;
     return string;
 }
 
 ObjString* takeString(char* chars, int length) {
-    return allocateString(chars, length);
+    return allocateString(chars, length, false);
 }
-
-ObjString* copyString(const char* chars, int length) {
-    char* heap_chars = ALLOCATE(char, length + 1);
-    memcpy(heap_chars, chars, length);
-    heap_chars[length] = '\0';
-    return allocateString(heap_chars, length);
+ObjString* constantString(const char* chars, int length) {
+    return allocateString(chars, length, true);
 }
 
 void printObject(Value value) {
