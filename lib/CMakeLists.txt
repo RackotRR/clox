@@ -4,6 +4,7 @@ project(clox_lib)
 
 add_library(clox_lib
     src/chunk.c
+    src/debug.c
     src/lines_info.c
     src/memory.c
     src/value.c)
