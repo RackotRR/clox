@@ -43,43 +43,6 @@ static Entry* findEntry(Entry* entries, int capacity, ObjString* key) {
     }
 }
 
-    
-// my deletion with swapping
-//bool tableDelete(Table* table, ObjString* key) {
-//    if (table->count == 0) return false;
-//
-//    Entry* target_entry;
-//    uint32_t target_index = key->hash % table->capacity;
-//    for (;;) {
-//        target_entry = &table->entries[target_index];
-//        if (target_entry->key == NULL) return false;
-//        if (target_entry->key == key) break;
-//        target_index = (target_index + 1) % table->capacity;
-//    }
-//
-//    Entry* swap_entry = NULL;
-//    uint32_t swap_index = target_index + 1;
-//    for (;;) {
-//        Entry* current_entry = &table->entries[swap_index];
-//
-//        if (current_entry->key == NULL) break;
-//        if (current_entry->key->hash != key->hash) break;
-//
-//        swap_entry = current_entry;
-//        swap_index = (swap_index + 1) % table->capacity;
-//    }
-//
-//    if (swap_entry) {
-//        target_entry->key = swap_entry->key;
-//        target_entry->value = swap_entry->value;
-//        swap_entry->key = NULL;
-//        swap_entry->value = NIL_VAL;
-//    }
-//
-//    table->count--;
-//    return true;
-//}
-
 // deletion with tombstones
 bool tableDelete(Table* table, ObjString* key) {
     if (table->count == 0) return false;

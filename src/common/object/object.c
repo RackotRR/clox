@@ -58,9 +58,10 @@ ObjString* constantString(const char* chars, int length) {
 
 void printObject(Value value) {
     switch (OBJ_TYPE(value)) {
-    case OBJ_STRING:
-        printf("%s", AS_CSTRING(value));
-        break;
+    case OBJ_STRING: {
+        ObjString* string = AS_STRING(value);
+        printf("%.*s", string->length, string->chars);
+    } break;
     default:
         break;
     }
